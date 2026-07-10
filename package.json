@@ -1,7 +1,7 @@
 {
   "name": "@free-fonts/babelstone-han",
   "version": "1.0.0",
-  "description": "Chunked woff2 webfonts for BabelStone Han (Basic + Extra + PUA).",
+  "description": "Chunked woff2 webfonts for BabelStone Han (Basic + Extra + PUA). BabelStone Han 三款字型（Basic／Extra／PUA）的 256 碼位切片 woff2 網頁字型。",
   "license": "MIT AND Arphic-1999",
   "main": "babelstone-han.css",
   "style": "babelstone-han.css",
