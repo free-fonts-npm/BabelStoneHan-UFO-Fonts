@@ -1,0 +1,28 @@
+{
+  "name": "@free-fonts/babelstone-han",
+  "version": "1.0.0",
+  "description": "Chunked woff2 webfonts for BabelStone Han (Basic + Extra + PUA).",
+  "license": "MIT AND Arphic-1999",
+  "main": "babelstone-han.css",
+  "style": "babelstone-han.css",
+  "files": [
+    "babelstone-han.css",
+    "fonts",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/free-fonts-npm/BabelStoneHan-UFO-Fonts.git"
+  },
+  "keywords": [
+    "font",
+    "webfont",
+    "woff2",
+    "cjk",
+    "babelstone",
+    "ids",
+    "pua",
+    "unicode-range"
+  ]
+}
