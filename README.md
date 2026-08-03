@@ -60,6 +60,7 @@ Basic 的分片保留上游 GSUB/GPOS 表（`calt`、`liga`、`vert` 直排替�
 選擇符，base+VS 組合可正常顯示。Extra 分片同樣保留 IVS。PUA 上游本身
 無 layout 表。
 
+- 線上樣張：<https://free-fonts.digitalhumanities.dev/specimen?font=babelstone-han>
 - 上游：<https://github.com/babelstone/babelstonehan-ufo>（<https://www.babelstone.co.uk/Fonts/> 的 UFO 源碼）
 - 上游字型授權：Arphic Public License（文鼎公眾授權）
 - 本包腳本與詮釋資料授權：MIT
@@ -131,6 +132,7 @@ and Ideographic Variation Sequences (cmap format 14); every slice carries the
 font's variation selectors so base+VS pairs render correctly. Extra slices
 keep IVS as well. PUA has no layout tables upstream.
 
+- Live specimen: <https://free-fonts.digitalhumanities.dev/specimen?font=babelstone-han>
 - Upstream: <https://github.com/babelstone/babelstonehan-ufo>
   (UFO sources for <https://www.babelstone.co.uk/Fonts/>)
 - Upstream font license: Arphic Public License
