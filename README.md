@@ -70,7 +70,7 @@ Basic 另有 110 個基底字只能經異體字序列取用（多為相容表意
 - 上游字型授權：Arphic Public License（文鼎公眾授權）
 - 本包腳本與詮釋資料授權：MIT
 - 生成的 woff2 檔案：485 個（484 個 256 碼位 `unicode-range` 分片＋1 個 SVS 分片）
-- IVS 測試頁：[`BSH_IVS.html`](BSH_IVS.html)（上游 IVS 對照表改用本包字型，僅在 repo）
+- IVS 測試頁：[`BSH_IVS.html`](BSH_IVS.html)（上游 IVS 對照表，經 jsDelivr 載入本包 1.1.0 字型，可直接打開；僅在 repo）
 - 版本紀錄：[CHANGELOG.md](CHANGELOG.md)
 - 從上游重建：`pip install fonttools brotli && python3 build.py`
 
@@ -152,7 +152,7 @@ codepoints; a bare base without a selector still falls through to Extra.
 - Upstream font license: Arphic Public License
 - Package scripts and metadata license: MIT
 - Generated woff2 files: 485 (484 256-codepoint `unicode-range` chunks + 1 SVS chunk)
-- IVS test page: [`BSH_IVS.html`](BSH_IVS.html) (upstream IVS chart using these webfonts; repo only)
+- IVS test page: [`BSH_IVS.html`](BSH_IVS.html) (upstream IVS chart loading 1.1.0 of these webfonts from jsDelivr; opens standalone; repo only)
 - Changelog: [CHANGELOG.md](CHANGELOG.md)
 - Rebuild from upstream: `pip install fonttools brotli && python3 build.py`
 

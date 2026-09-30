@@ -6,11 +6,12 @@
   Adapted from BSH_IVS.html in the upstream BabelStone Han v18.0.1 release
   (https://github.com/babelstone/babelstonehan-ufo/releases/tag/v18.0.1),
   (c) Andrew West. Changes: the site stylesheet ../BabelStone.css is replaced by
-  this package's chunked webfont CSS plus a minimal inline style, and relative
+  this package's chunked webfont CSS (from jsDelivr, pinned to 1.1.0 = BabelStone
+  Han 18.0.1, matching this chart) plus a minimal inline style, and relative
   links point to babelstone.co.uk / the upstream release. Table content is
   unchanged.
 -->
-<link rel="stylesheet" type="text/css" href="babelstone-han.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@free-fonts/babelstone-han@1.1.0/babelstone-han.css" />
 <style type="text/css">
 :root { color-scheme: light dark; }
 body { margin: 1.5em auto; max-width: 72em; padding: 0 16px;
@@ -32,10 +33,11 @@ table.solid th, table.solid td { border: 1px solid #999; padding: 0.2em 0.5em; v
 <body>
 <h1>BabelStone Fonts</h1>
 <p class="webfont-note">Test copy of the upstream <code>BSH_IVS.html</code>, rendered with the
-<code>@free-fonts/babelstone-han</code> chunked webfonts
-(<a href="babelstone-han.css">babelstone-han.css</a>) instead of locally installed fonts.
+<code>@free-fonts/babelstone-han@1.1.0</code> chunked webfonts from jsDelivr
+(<a href="https://cdn.jsdelivr.net/npm/@free-fonts/babelstone-han@1.1.0/babelstone-han.css">babelstone-han.css</a>) instead of locally installed fonts;
+it needs nothing else and works from any computer with Internet access.
 Every glyph in the table should show the variant for its variation selector.
-本頁為上游 <code>BSH_IVS.html</code> 的測試副本，改用本包的切片網頁字型渲染。</p>
+本頁為上游 <code>BSH_IVS.html</code> 的測試副本，改用本包 1.1.0 的切片網頁字型（經 jsDelivr 載入）渲染，無其他依賴，任何聯網電腦皆可正確顯示。</p>
 <hr/>
 <h2>BabelStone Han Variation Sequences</h2>
 
