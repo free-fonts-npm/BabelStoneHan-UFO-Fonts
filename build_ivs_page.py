@@ -30,6 +30,7 @@ from build import RELEASE_BASE, SOURCES, SRC_DIR
 ROOT = Path(__file__).parent
 OUT_PATH = ROOT / "BSH_IVS.html"
 UPSTREAM_HTML = SRC_DIR / "BSH_IVS.html"
+UPSTREAM_TXT = SRC_DIR / "BSH_IVS.TXT"
 SV_TXT = SRC_DIR / "StandardizedVariants.txt"
 SV_URL = "https://www.unicode.org/Public/UCD/latest/ucd/StandardizedVariants.txt"
 
@@ -44,9 +45,11 @@ HEAD = f"""<!--
   (c) Andrew West. Changes: the site stylesheet ../BabelStone.css is replaced by
   this package's chunked webfont CSS (from jsDelivr, pinned to {VERSION}, matching
   this chart) plus a minimal inline style; relative links point to
-  babelstone.co.uk / the upstream release; the "Standardized Variation
-  Sequences" section at the end is generated from the fonts by
-  build_ivs_page.py. The upstream table content is unchanged.
+  babelstone.co.uk / the upstream release; IVD markers (*) that the HTML
+  table lacks but BSH_IVS.TXT of the same release has are restored (dotted
+  underline); the "Standardized Variation Sequences" section at the end is
+  generated from the fonts by build_ivs_page.py. The upstream table content is
+  otherwise unchanged.
 -->
 <link rel="stylesheet" type="text/css" href="{CSS_URL}" />
 <style type="text/css">
@@ -64,15 +67,64 @@ table.solid th, table.solid td {{ border: 1px solid #999; padding: 0.2em 0.5em; 
 .sml1, .sml2, .sml3 {{ text-align: left; }}
 .sm1, .sml1 {{ background: rgba(128, 128, 128, 0.06); }}
 .sm3, .sml3 {{ background: rgba(128, 128, 128, 0.12); }}
+.ivd-restored {{ text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }}
 </style>"""
 
 
 def download() -> None:
     SRC_DIR.mkdir(exist_ok=True)
     for url, dest in [(f"{RELEASE_BASE}/{TAG}/BSH_IVS.html", UPSTREAM_HTML),
+                      (f"{RELEASE_BASE}/{TAG}/BSH_IVS.TXT", UPSTREAM_TXT),
                       (SV_URL, SV_TXT)]:
         print(f"Downloading {url} ...")
         urllib.request.urlretrieve(url, dest)
+
+
+IVS_ROW = re.compile(
+    r'<td class="(sm\d)">(VS\d+)(\**)</td>(\s*<td class="sml\d"><span class="bs_han vbig">)([^<]{2})</span>')
+
+
+def restore_ivd_markers(page: str) -> tuple[str, int]:
+    """Take the IVD markers (*) of the upstream table from BSH_IVS.TXT.
+
+    Both files list the same sequences in the same order, but the v18.0.1 HTML
+    table leaves 24 IVD-registered sequences unstarred although its own intro
+    counts 384 as the TXT does. Only missing stars are added; a star the TXT
+    lacks is reported, not removed.
+    """
+    txt = []
+    for line in UPSTREAM_TXT.read_text(encoding="utf-8-sig").splitlines():
+        if not line.strip() or line.startswith("#"):
+            continue
+        m = re.match(r"U\+\S+ \+ VS\d+\t<(\w+) (\w+)>\t\{.*\}\t(\*?)\s*$", line)
+        if not m:
+            raise SystemExit(f"unexpected BSH_IVS.TXT line: {line!r}")
+        txt.append(((int(m.group(1), 16), int(m.group(2), 16)), m.group(3) == "*"))
+
+    start = page.index('<table id="Variants"')
+    end = page.index("</table>", start)
+    table = page[start:end]
+    rows = [((ord(m.group(5)[0]), ord(m.group(5)[1])), m.group(3) == "*")
+            for m in IVS_ROW.finditer(table)]
+    if [seq for seq, _ in rows] != [seq for seq, _ in txt]:
+        raise SystemExit("BSH_IVS.TXT and BSH_IVS.html list different sequences")
+    extra = [f"U+{b:04X} U+{v:04X}" for ((b, v), star), (_, t) in zip(rows, txt) if star and not t]
+    if extra:
+        raise SystemExit(f"HTML marks {len(extra)} sequences as IVD that BSH_IVS.TXT does not: {extra[:5]}")
+
+    stars = iter(t for _, t in txt)
+    restored = 0
+
+    def fix(m: re.Match) -> str:
+        nonlocal restored
+        if next(stars) and m.group(3) == "":
+            restored += 1
+            return (f'<td class="{m.group(1)} ivd-restored" title="IVD marker restored from '
+                    f'BSH_IVS.TXT">{m.group(2)}*</td>{m.group(4)}{m.group(5)}</span>')
+        return m.group(0)
+
+    table = IVS_ROW.sub(fix, table)
+    return page[:start] + table + page[end:], restored
 
 
 def load_standardized_variants() -> tuple[dict, str]:
@@ -256,6 +308,7 @@ def main() -> None:
                          f"{len(in_fonts)} ({len(in_fonts - listed)} missing, "
                          f"{len(listed - in_fonts)} extra); check the release tag")
 
+    page, restored = restore_ivd_markers(page)
     section, n_svs = svs_section(fonts, sv, sv_version, len(listed))
     note = (
         '<p class="webfont-note">Test copy of the upstream <code>BSH_IVS.html</code>, rendered with the\n'
@@ -265,9 +318,14 @@ def main() -> None:
         "Every glyph in the tables should show the variant for its variation selector.\n"
         f'A generated <a href="#SVS">Standardized Variation Sequences</a> section ({n_svs:,} more\n'
         f"sequences) at the end makes the page cover all {len(listed) + n_svs:,} variation sequences in the fonts.\n"
+        + (f'{restored} IVD markers (<span class="ivd-restored">*</span>) missing from the upstream HTML table '
+           "were restored from <code>BSH_IVS.TXT</code> of the same release.\n" if restored else "")
+        +
         f"本頁為上游 <code>BSH_IVS.html</code> 的測試副本，改用本包 {VERSION} 的切片網頁字型（經 jsDelivr 載入）渲染，"
         "無其他依賴，任何聯網電腦皆可正確顯示；"
-        f'文末另附自動生成的<a href="#SVS">標準化變體序列</a>一節，合計涵蓋字型支援的全部 {len(listed) + n_svs:,} 組異體字序列。</p>'
+        f'文末另附自動生成的<a href="#SVS">標準化變體序列</a>一節，合計涵蓋字型支援的全部 {len(listed) + n_svs:,} 組異體字序列'
+        + (f"；上游 HTML 漏標的 {restored} 個 IVD 已註冊標記（虛線底線）依同版本 <code>BSH_IVS.TXT</code> 補上" if restored else "")
+        + "。</p>"
     )
     for old, new in [
         ('<link rel="stylesheet" type="text/css" href="../BabelStone.css" />', HEAD),
@@ -283,7 +341,8 @@ def main() -> None:
         page = page.replace(old, new)
 
     OUT_PATH.write_text(page, encoding="utf-8")
-    print(f"{OUT_PATH.name}: {len(listed):,} IVS (upstream) + {n_svs:,} SVS "
+    print(f"{OUT_PATH.name}: {len(listed):,} IVS (upstream, {restored} IVD markers "
+          f"restored from BSH_IVS.TXT) + {n_svs:,} SVS "
           f"(generated, Unicode {sv_version}); fonts from {CSS_URL}")
 
 
