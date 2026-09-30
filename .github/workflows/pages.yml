@@ -1,0 +1,48 @@
+name: Deploy IVS test page to GitHub Pages
+
+# Publishes only BSH_IVS.html (it loads the fonts from jsDelivr), not the repo.
+on:
+  push:
+    branches: [main]
+    paths:
+      - BSH_IVS.html
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}BSH_IVS.html
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Assemble site
+        run: |
+          mkdir _site
+          cp BSH_IVS.html _site/
+          cat > _site/index.html <<'EOF'
+          <!doctype html>
+          <meta charset="utf-8">
+          <title>BabelStone Han IVS</title>
+          <meta http-equiv="refresh" content="0; url=BSH_IVS.html">
+          <link rel="canonical" href="BSH_IVS.html">
+          <p><a href="BSH_IVS.html">BSH_IVS.html</a></p>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v5
