@@ -36,27 +36,27 @@ RELEASE_BASE = "https://github.com/babelstone/babelstonehan-ufo/releases/downloa
 
 SOURCES = [
     {
-        "url": f"{RELEASE_BASE}/20260707/BabelStoneHanBasicBeta.ttf",
-        "file": "BabelStoneHanBasicBeta.ttf",
-        "tag": "20260707",
+        "url": f"{RELEASE_BASE}/v18.0.1/BabelStoneHanBasic.ttf",
+        "file": "BabelStoneHanBasic.ttf",
+        "tag": "v18.0.1",
         "prefix": "BabelStoneHanBasic",
         "family": "BabelStone Han Basic",
         "keep_layout": True,
         "note": "BMP: URO, Ext A, compatibility ideographs; GSUB/GPOS/IVS kept",
     },
     {
-        "url": f"{RELEASE_BASE}/20260707/BabelStoneHanExtraBeta.ttf",
-        "file": "BabelStoneHanExtraBeta.ttf",
-        "tag": "20260707",
+        "url": f"{RELEASE_BASE}/v18.0.1/BabelStoneHanExtra.ttf",
+        "file": "BabelStoneHanExtra.ttf",
+        "tag": "v18.0.1",
         "prefix": "BabelStoneHanExtra",
         "family": "BabelStone Han Extra",
         "keep_layout": True,  # no GSUB upstream, but keep the cmap14 IVS path
         "note": "Supplementary planes: Ext B-J; IVS kept",
     },
     {
-        "url": f"{RELEASE_BASE}/PUAv1.478/BabelStoneHanPUA.ttf",
+        "url": f"{RELEASE_BASE}/PUAv1.484/BabelStoneHanPUA.ttf",
         "file": "BabelStoneHanPUA.ttf",
-        "tag": "PUAv1.478",
+        "tag": "PUAv1.484",
         "prefix": "BabelStoneHanPUA",
         "family": "BabelStone Han PUA",
         "keep_layout": False,
@@ -87,6 +87,25 @@ def variation_selectors(ttf_path: Path) -> list[int]:
     return sorted(vs)
 
 
+def vs_only_bases(ttf_path: Path) -> set[int]:
+    """Base codepoints reachable only through a variation sequence.
+
+    Basic's cmap14 maps e.g. <U+20122, U+FE00> (the standardized variant for
+    compatibility ideograph U+2F803) to its own glyph, but U+20122 itself is
+    not in Basic's cmap. Those bases get no regular chunk, so they need a
+    dedicated one or browsers never try Basic for them.
+    """
+    tt = TTFont(str(ttf_path), lazy=True)
+    mapped = set(tt.getBestCmap())
+    bases: set[int] = set()
+    for table in tt["cmap"].tables:
+        if table.format == 14:
+            for pairs in table.uvsDict.values():
+                bases.update(b for b, g in pairs if g is not None and b not in mapped)
+    tt.close()
+    return bases
+
+
 def _build_chunk(args: tuple) -> tuple[str, int]:
     ttf_path, cps, out_path, keep_layout, extra_unicodes = args
     options = ft_subset.Options()
@@ -105,6 +124,31 @@ def _build_chunk(args: tuple) -> tuple[str, int]:
     font.close()
     p = Path(out_path)
     return p.name, p.stat().st_size
+
+
+def codepoint_ranges_str(cps: set[int]) -> str:
+    runs: list[list[int]] = []
+    for cp in sorted(cps):
+        if runs and cp == runs[-1][1] + 1:
+            runs[-1][1] = cp
+        else:
+            runs.append([cp, cp])
+    return ", ".join(
+        f"U+{a:04X}" if a == b else f"U+{a:04X}-{b:04X}" for a, b in runs
+    )
+
+
+def font_face(family: str, file: str, unicode_range: str) -> str:
+    return (
+        "@font-face {\n"
+        f"  font-family: '{family}';\n"
+        "  font-style: normal;\n"
+        "  font-weight: 400;\n"
+        "  font-display: swap;\n"
+        f"  src: url('fonts/{file}') format('woff2');\n"
+        f"  unicode-range: {unicode_range};\n"
+        "}"
+    )
 
 
 def unicode_range_str(start: int) -> str:
@@ -132,12 +176,14 @@ def main() -> None:
         version = tt["name"].getDebugName(5)
         tt.close()
         vs = variation_selectors(ttf) if src["keep_layout"] else []
+        svs_bases = vs_only_bases(ttf) if vs else set()
 
         chunk_map: dict[int, set[int]] = {}
         for cp in cps:
             chunk_map.setdefault((cp // CHUNK_SIZE) * CHUNK_SIZE, set()).add(cp)
         print(f"{ttf.name}: {len(cps):,} cps, {len(chunk_map)} chunks, "
-              f"{len(vs)} variation selectors, {version}")
+              f"{len(vs)} variation selectors, "
+              f"{len(svs_bases)} VS-only bases, {version}")
 
         tasks = [
             (str(ttf), chunk_cps,
@@ -145,23 +191,26 @@ def main() -> None:
              src["keep_layout"], vs)
             for start, chunk_cps in sorted(chunk_map.items())
         ]
+        svs_file = f"{src['prefix']}-svs.woff2"
+        if svs_bases:
+            tasks.append((str(ttf), svs_bases, str(FONTS_DIR / svs_file),
+                          src["keep_layout"], vs))
         with Pool(processes=args.jobs) as pool:
             for i, (name, size) in enumerate(pool.imap_unordered(_build_chunk, tasks), 1):
                 if i % 40 == 0 or i == len(tasks):
                     print(f"  [{i}/{len(tasks)}] {name} {size // 1024} KB")
 
-        rules = []
-        for start in sorted(chunk_map):
-            rules.append(
-                "@font-face {\n"
-                f"  font-family: '{src['family']}';\n"
-                "  font-style: normal;\n"
-                "  font-weight: 400;\n"
-                "  font-display: swap;\n"
-                f"  src: url('fonts/{src['prefix']}-{start:06x}.woff2') format('woff2');\n"
-                f"  unicode-range: {unicode_range_str(start)};\n"
-                "}"
-            )
+        rules = [
+            font_face(src["family"], f"{src['prefix']}-{start:06x}.woff2",
+                      unicode_range_str(start))
+            for start in sorted(chunk_map)
+        ]
+        if svs_bases:
+            # Exact codepoints rather than 256 blocks: only pages that use one
+            # of these bases fetch this file; a bare base (no VS) still falls
+            # through to the next family since this chunk has no cmap entry.
+            rules.append(font_face(src["family"], svs_file,
+                                   codepoint_ranges_str(svs_bases)))
         sections.append(
             f"/* {src['family']} — {src['note']} */\n\n" + "\n\n".join(rules)
         )
@@ -169,7 +218,7 @@ def main() -> None:
     header = (
         "/* BabelStone Han Webfonts (Basic + Extra + PUA)\n"
         " * Upstream: https://github.com/babelstone/babelstonehan-ufo\n"
-        " *   Basic/Extra: tag 20260707 (Version 17.0.2 BETA); PUA: tag PUAv1.478\n"
+        " *   Basic/Extra: tag v18.0.1 (Version 18.0.1); PUA: tag PUAv1.484\n"
         " * Generated CSS; do not edit manually.\n"
         " * Chunk size: 256 codepoints.\n"
         " */\n\n"

@@ -1,6 +1,6 @@
 /* BabelStone Han Webfonts (Basic + Extra + PUA)
  * Upstream: https://github.com/babelstone/babelstonehan-ufo
- *   Basic/Extra: tag 20260707 (Version 17.0.2 BETA); PUA: tag PUAv1.478
+ *   Basic/Extra: tag v18.0.1 (Version 18.0.1); PUA: tag PUAv1.484
  * Generated CSS; do not edit manually.
  * Chunk size: 256 codepoints.
  */
@@ -1490,6 +1490,15 @@
   font-display: swap;
   src: url('fonts/BabelStoneHanBasic-0e0100.woff2') format('woff2');
   unicode-range: U+E0100-E01FF;
+}
+
+@font-face {
+  font-family: 'BabelStone Han Basic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/BabelStoneHanBasic-svs.woff2') format('woff2');
+  unicode-range: U+20122, U+2051C, U+20525, U+2054B, U+2063A, U+20804, U+208DE, U+20A2C, U+20B63, U+214E4, U+216A8, U+216EA, U+219C8, U+21B18, U+21D0B, U+21DE4, U+21DE6, U+22183, U+2219F, U+22331, U+226D4, U+22844, U+2284A, U+22B0C, U+22BF1, U+2300A, U+232B8, U+2335F, U+23393, U+2339C, U+233C3, U+233D5, U+2346D, U+236A3, U+238A7, U+23A8D, U+23AFA, U+23CBC, U+23D1E, U+23ED1, U+23F5E, U+23F8E, U+24263, U+242EE, U+243AB, U+24608, U+24735, U+24814, U+24C36, U+24C92, U+24FA1, U+24FB8, U+25044, U+250F2-250F3, U+25119, U+25133, U+25249, U+2541D, U+25626, U+2569A, U+256C5, U+2597C, U+25AA7, U+25BAB, U+25C80, U+25CD0, U+25F86, U+261DA, U+26228, U+26247, U+262D9, U+2633E, U+264DA, U+26523, U+265A8, U+267A7, U+267B5, U+26B3C, U+26C36, U+26CD5, U+26D6B, U+26F2C, U+26FB1, U+270D2, U+273CA, U+27667, U+278AE, U+27966, U+27CA8, U+27ED3, U+27F2F, U+285D2, U+285ED, U+2872E, U+28BFA, U+28D77, U+29145, U+291DF, U+2921A, U+2940A, U+29496, U+295B6, U+29B30, U+2A0CE, U+2A105, U+2A20E, U+2A291, U+2A392, U+2A600;
 }
 
 /* BabelStone Han Extra — Supplementary planes: Ext B-J; IVS kept */
