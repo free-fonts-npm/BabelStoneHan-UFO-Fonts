@@ -10,7 +10,9 @@
   this chart) plus a minimal inline style; relative links point to
   babelstone.co.uk / the upstream release; IVD markers (*) that the HTML
   table lacks but BSH_IVS.TXT of the same release has are restored (dotted
-  underline); the "Standardized Variation Sequences" section at the end is
+  underline); sequences registered in a later IVD (2026-08-03) whose glyph was
+  checked against the registered one are starred too (double underline);
+  the "Standardized Variation Sequences" section at the end is
   generated from the fonts by build_ivs_page.py. The upstream table content is
   otherwise unchanged.
 -->
@@ -23,7 +25,7 @@ body { margin: 1.5em auto; max-width: 72em; padding: 0 16px;
   line-height: 1.5; }
 .bs_han { font-family: 'BabelStone Han Basic', 'BabelStone Han Extra', 'BabelStone Han PUA'; }
 .vbig { font-size: 40px; line-height: 1.2; margin: 0.1em 0; }
-.webfont-note { border: 1px solid #c90; background: rgba(255, 204, 0, 0.12); padding: 0.6em 1em; }
+.webfont-note { border: 1px solid #c90; background: rgba(255, 204, 0, 0.12); padding: 0 1em; }
 table.solid { border-collapse: collapse; }
 table.solid th, table.solid td { border: 1px solid #999; padding: 0.2em 0.5em; vertical-align: middle; }
 .sm, .sm1, .sm2, .sm3 { text-align: center; }
@@ -31,30 +33,60 @@ table.solid th, table.solid td { border: 1px solid #999; padding: 0.2em 0.5em; v
 .sm1, .sml1 { background: rgba(128, 128, 128, 0.06); }
 .sm3, .sml3 { background: rgba(128, 128, 128, 0.12); }
 .ivd-restored { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
+.em-box { display: inline-block; line-height: 1; margin: 0.15em 0;
+  outline: 1px dashed rgba(128, 128, 128, 0.8); }
+.zh { border-left: 3px solid rgba(128, 128, 128, 0.35); padding-left: 0.8em; }
+.toc { border: 1px solid rgba(128, 128, 128, 0.5); padding: 0.4em 1.2em; margin: 1em 0; }
+.toc h2 { font-size: 1.1em; margin: 0.4em 0; }
+.toc ol { margin: 0.2em 0; }
+.ivd-new { text-decoration: underline double; text-underline-offset: 3px; cursor: help; }
 </style>
 <title>BabelStone Fonts : BabelStone Han Variants</title>
 </head>
 <body>
 <h1>BabelStone Fonts</h1>
-<p class="webfont-note">Test copy of the upstream <code>BSH_IVS.html</code>, rendered with the
+<div class="webfont-note">
+<p>Test copy of the upstream <code>BSH_IVS.html</code>, rendered with the
 <code>@free-fonts/babelstone-han@1.1.0</code> chunked webfonts from jsDelivr
 (<a href="https://cdn.jsdelivr.net/npm/@free-fonts/babelstone-han@1.1.0/babelstone-han.css">babelstone-han.css</a>) instead of locally installed fonts;
 it needs nothing else and works from any computer with Internet access.
 Every glyph in the tables should show the variant for its variation selector.
 A generated <a href="#SVS">Standardized Variation Sequences</a> section (1,059 more
 sequences) at the end makes the page cover all 3,952 variation sequences in the fonts.
-24 IVD markers (<span class="ivd-restored">*</span>) missing from the upstream HTML table were restored from <code>BSH_IVS.TXT</code> of the same release.
-本頁為上游 <code>BSH_IVS.html</code> 的測試副本，改用本包 1.1.0 的切片網頁字型（經 jsDelivr 載入）渲染，無其他依賴，任何聯網電腦皆可正確顯示；文末另附自動生成的<a href="#SVS">標準化變體序列</a>一節，合計涵蓋字型支援的全部 3,952 組異體字序列；上游 HTML 漏標的 24 個 IVD 已註冊標記（虛線底線）依同版本 <code>BSH_IVS.TXT</code> 補上。</p>
+24 IVD markers (<span class="ivd-restored">*</span>) missing from the upstream HTML table were restored from <code>BSH_IVS.TXT</code> of the same release.3 sequences registered since, in IVD 2026-08-03, are starred as well (<span class="ivd-new">*</span>) after comparing their glyphs with the registered ones.</p>
+<p lang="zh-Hant">本頁為上游 <code>BSH_IVS.html</code> 的測試副本，改用本包 1.1.0 的切片網頁字型（經 jsDelivr 載入）渲染，無其他依賴，任何聯網電腦皆可正確顯示；文末另附自動生成的<a href="#SVS">標準化變體序列</a>一節，合計涵蓋字型支援的全部 3,952 組異體字序列；上游 HTML 漏標的 24 個 IVD 已註冊標記（虛線底線）依同版本 <code>BSH_IVS.TXT</code> 補上；另有 3 組在 IVD 2026-08-03 新註冊、經比對字形相符者亦加上標記（雙底線）。</p>
+</div>
+<nav class="toc" aria-label="Contents">
+<h2>Contents 目錄</h2>
+<ol>
+<li><a href="#intro">BabelStone Han Variation Sequences</a> <span lang="zh-Hant">說明</span></li>
+<li><a href="#Variants">Ideographic Variation Sequences</a> <span lang="zh-Hant">表意文字異體字序列表</span> (2,893)</li>
+<li><a href="#SVS">Standardized Variation Sequences</a> <span lang="zh-Hant">標準化變體序列</span> (1,059)
+<ol>
+<li><a href="#SVS-compat-h">CJK Compatibility Ideographs</a> <span lang="zh-Hant">中日韓相容表意文字</span> (1,002)</li>
+<li><a href="#SVS-other">Other Standardized Variants</a> <span lang="zh-Hant">其他標準化變體</span> (25)</li>
+<li><a href="#SVS-babelstone">BabelStone-specific Sequences</a> <span lang="zh-Hant">BabelStone 自訂序列</span> (32)</li>
+</ol></li>
+</ol>
+</nav>
 <hr/>
-<h2>BabelStone Han Variation Sequences</h2>
+<h2 id="intro">BabelStone Han Variation Sequences</h2>
 
 <p><a href="https://www.babelstone.co.uk/Fonts/Han.html">BabelStone Han</a> v. 18.0.1 supports an experimental set of 2,893 <a href="http://www.unicode.org/reports/tr37/" title="Unicode Technical Standard #37: Unicode Ideographic Variation Database">ideographic variation sequences</a> for the 1,407 CJK unified ideographs listed in the table below. 1,343 characters have two variants, 55 characters have three variants, seven characters have four variants, one character has five variants, and one character has nine variants. For each character, the first variant is always the same as the BabelStone Han glyph for the unmodified character. A plain text listing of the IVS sequences is available as <a href="https://github.com/babelstone/babelstonehan-ufo/releases/download/v18.0.1/BSH_IVS.TXT">BSH_IVS.TXT</a>.</p>
 
+<p class="zh" lang="zh-Hant"><a href="https://www.babelstone.co.uk/Fonts/Han.html">BabelStone Han</a> 18.0.1 版為下表所列的 1,407 個中日韓統一表意文字，支援一套實驗性的 2,893 組<a href="http://www.unicode.org/reports/tr37/">表意文字異體字序列</a>（IVS）。其中 1,343 字有兩個變體，55 字有三個變體，七字有四個變體，一字有五個變體，一字有九個變體。每個字的第一個變體，一律與 BabelStone Han 中不加選擇符的該字字形相同。IVS 的純文字清單見 <a href="https://github.com/babelstone/babelstonehan-ufo/releases/download/v18.0.1/BSH_IVS.TXT">BSH_IVS.TXT</a>。</p>
+
 <p>These ideographic variation sequences are not registered in the <a href="https://unicode.org/ivd/" title="Ideographic Variation Database">Ideographic Variation Database</a> (IVD), and may be subject to change in future versions of the font. It is intended to register a BabelStone Collection in the IVD at a future date when the sequences listed here are stable.</p>
+
+<p class="zh" lang="zh-Hant">這些表意文字異體字序列並未在<a href="https://unicode.org/ivd/">表意文字異體字資料庫</a>（IVD）註冊，在字型日後的版本中可能變動。待此處所列序列穩定後，作者打算日後在 IVD 註冊一個 BabelStone 集合（BabelStone Collection）。</p>
 
 <p>The 384 variation selectors marked with an asterisk (e.g. "VS17*") indicate that the corresponding variation sequence is already registered in the IVD, and I think that the BabelStone glyph is an acceptable match for the glyph form for the registered IVS. All other variation sequences listed below should not be currently registered in the IVD (as of <a target="_blank" href="https://www.unicode.org/ivd/data/2025-07-14/">2025-07-14</a>). NB I plan to reassign most of the IVSes marked with an asterisk so they have a unique IVS sequence.</p>
 
+<p class="zh" lang="zh-Hant">標有星號的 384 個變體選擇符（如「VS17*」）表示對應的異體字序列已在 IVD 註冊，且作者認為 BabelStone 的字形與該已註冊 IVS 的字形可視為相符。下表所列的其他異體字序列，目前應都未在 IVD 註冊（截至 <a target="_blank" href="https://www.unicode.org/ivd/data/2025-07-14/">2025-07-14</a>）。注意：作者打算把大部分標有星號的 IVS 重新指派，使它們各自擁有唯一的 IVS 序列。</p>
+
 <p>In principle, BabelStone Han follows the G-source (China) glyph forms, but in some cases it seems preferable to not follow the G-source glyph where it does not match expected glyph conventions for China, or where G-source glyph forms are inconsistent. In these cases, an IVS is assigned for the G-source glyph form, indicated by a double asterisk (**) after the source reference. There are currently 49 cases, but this number will be reduced when and if China makes glyph corrections for these characters. NB China consistently has an unjoined right leg of 鬼 in characters in the URO and Ext. A, but consistently joins the right leg of 鬼 in characters in Ext. B and later — for consistency, BabelStone Han has an unjoined right leg in all 鬼 characters, but currently does not provide an IVS for the alternative version because there are so many characters. China also has an inconsistent mix of characters with joined and unjoined right leg of 旡 — for consistency, BabelStone Han has an unjoined right leg when 旡 occurs in a lateral position, but a joined leg elsewhere.</p>
+
+<p class="zh" lang="zh-Hant">原則上，BabelStone Han 依循 G 源（中國）字形；但若 G 源字形不符合中國慣常的字形規範，或 G 源字形本身前後不一致，有時不依循 G 源字形似乎更為可取。這種情況下，會為 G 源字形指派一個 IVS，並在來源參照後以雙星號（**）標示。目前共有 49 例，但若中國日後修正這些字的字形，數量將會減少。注意：中國在 URO 與擴充 A 區的字中，「鬼」的右腳一律不相連，在擴充 B 區及之後的字中卻一律相連——為求一致，BabelStone Han 所有含「鬼」的字右腳都不相連，但由於這類字太多，目前並未為另一種寫法提供 IVS。中國對「旡」右腳相連與否的處理也不一致——為求一致，BabelStone Han 在「旡」位於左右兩側時右腳不相連，其他位置則相連。</p>
 <br/>
 
 <table id="Variants" class="solid" width="100%">
@@ -12643,7 +12675,7 @@ sequences) at the end makes the page cover all 3,952 variation sequences in the 
 </tr>
 <tr>
 	<td class="sm2">2</td>
-	<td class="sm2">VS20</td>
+	<td class="sm2 ivd-new" title="Registered in IVD 2026-08-03 as Moji_Joho:MJ057273; glyph checked against the registered one">VS20*</td>
 	<td class="sml2"><span class="bs_han vbig">𠔉󠄃</span></td>
 	<td class="sml2">⿻丷夫</td>
 	<td class="sml2"></td>
@@ -15719,14 +15751,14 @@ sequences) at the end makes the page cover all 3,952 variation sequences in the 
 		<p class="bs_han vbig">𣪣</p>
 	</td>
 	<td class="sm1">1</td>
-	<td class="sm1">VS17</td>
+	<td class="sm1 ivd-new" title="Registered in IVD 2026-08-03 as Moji_Joho:MJ038918; glyph checked against the registered one">VS17*</td>
 	<td class="sml1"><span class="bs_han vbig">𣪣󠄀</span></td>
 	<td class="sml1">⿰⿱彐𧰨殳</td>
 	<td class="sml1">GKX-0587.02</td>
 </tr>
 <tr>
 	<td class="sm2">2</td>
-	<td class="sm2">VS18</td>
+	<td class="sm2 ivd-new" title="Registered in IVD 2026-08-03 as Moji_Joho:MJ057925; glyph checked against the registered one">VS18*</td>
 	<td class="sml2"><span class="bs_han vbig">𣪣󠄁</span></td>
 	<td class="sml2">⿰彖殳</td>
 	<td class="sml2"><a href="https://commons.wikimedia.org/w/index.php?title=File%3ACADAL01022630_%E6%BC%A2%E9%AD%8F%E5%85%AD%E6%9C%9D%E7%99%BE%E4%B8%89%E5%AE%B6%E9%9B%86%C2%B7%E6%9D%8E%E8%98%AD%E8%87%BA%E9%9B%86%E6%BC%A2%E9%AD%8F%E5%85%AD%E6%9C%9D%E7%99%BE%E4%B8%89%E5%AE%B6%E9%9B%86%C2%B7%E9%A6%AC%E5%AD%A3%E9%95%B7%E9%9B%86.djvu&amp;page=111">漢魏六朝百三家集・李蘭臺集漢魏六朝百三家集・馬季長集</a></td>
@@ -25952,15 +25984,17 @@ sequences) at the end makes the page cover all 3,952 variation sequences in the 
 </table>
 <br/>
 
-<h2 id="SVS">Standardized Variation Sequences</h2>
+<h2 id="SVS">Standardized Variation Sequences 標準化變體序列</h2>
 
 <p>In addition to the 2,893 ideographic variation sequences above, BabelStone Han supports 1,059 variation sequences with the standard variation selectors VS1–VS3 (U+FE00–FE02), listed below, so that this page covers every variation sequence in the fonts. This section is not part of the upstream chart: it is generated from the fonts' cmap format 14 tables and <a href="https://www.unicode.org/Public/18.0.0/ucd/StandardizedVariants.txt">StandardizedVariants-18.0.0.txt</a>.</p>
 
-<p>本節不屬於上游對照表：由字型的 cmap format 14 表與 Unicode 標準化變體列表自動生成，列出 VS1–VS3 的 1,059 組序列，連同上方 2,893 組 IVS，涵蓋字型支援的全部異體字序列。</p>
+<p class="zh" lang="zh-Hant">除了上方的 2,893 組表意文字異體字序列（IVS），BabelStone Han 還支援 1,059 組使用標準變體選擇符 VS1–VS3（U+FE00–FE02）的變體序列，列於下方，使本頁涵蓋字型中的全部異體字序列。本節不屬於上游對照表，而是由字型的 cmap format 14 表與 <a href="https://www.unicode.org/Public/18.0.0/ucd/StandardizedVariants.txt">StandardizedVariants-18.0.0.txt</a> 自動生成。</p>
 
-<h3 id="SVS-compat-h">CJK Compatibility Ideographs (1,002)</h3>
+<h3 id="SVS-compat-h">CJK Compatibility Ideographs 中日韓相容表意文字 (1,002)</h3>
 
-<p>Unicode normalization turns each CJK compatibility ideograph into its unified ideograph, losing its distinct glyph; the standardized variation sequence (unified ideograph + VS) listed here keeps that glyph. The Glyph and Compatibility Ideograph columns should therefore look the same. BabelStone Han supports 1,002 of the 1,002 such sequences defined in Unicode 18.0.0.</p>
+<p>Unicode normalization turns each CJK compatibility ideograph into its unified ideograph, losing its distinct glyph; the standardized variation sequence (unified ideograph + VS) listed here keeps that glyph. The Glyph and Compatibility Ideograph columns should therefore look the same. Unicode has defined such a sequence for every CJK compatibility ideograph since version 6.3 (2013); BabelStone Han supports 1,002 of the 1,002 in Unicode 18.0.0, while most CJK fonts support few or none.</p>
+
+<p class="zh" lang="zh-Hant">Unicode 正規化會把每個中日韓相容表意文字轉為對應的統一表意文字，因而失去其獨特字形；此處列出的標準化變體序列（統一表意文字＋VS）則保留了該字形，因此 Glyph 與 Compatibility Ideograph 兩欄應顯示相同的字形。Unicode 自 6.3 版（2013 年）起即為每個中日韓相容表意文字定義了這類序列；Unicode 18.0.0 共 1,002 組，BabelStone Han 支援其中 1,002 組，而多數中日韓字型支援得很少或完全不支援。</p>
 
 <table id="SVS-compat" class="solid" width="100%">
 <thead>
@@ -35598,7 +35632,11 @@ sequences) at the end makes the page cover all 3,952 variation sequences in the 
 
 <br/>
 
-<h3 id="SVS-other">Other Standardized Variants (25)</h3>
+<h3 id="SVS-other">Other Standardized Variants 其他標準化變體 (25)</h3>
+
+<p>The dashed box around each glyph is its character cell: the glyph's advance width by 1 em, so the position of a mark within a fullwidth cell (corner or centre) and the narrower advance of a non-fullwidth form can be compared directly.</p>
+
+<p class="zh" lang="zh-Hant">每個字形外的虛線框是它的字身框：寬為字形的步進寬度（advance width），高為 1 em。由此可直接比較標點在全形字身框中的位置（靠角或置中），以及非全形形式較窄的步進寬度。</p>
 
 <table id="SVS-other-table" class="solid" width="100%">
 <thead>
@@ -35614,186 +35652,188 @@ sequences) at the end makes the page cover all 3,952 variation sequences in the 
 <tr>
 	<td class="sm1">U+0030</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">0</span></td>
-	<td class="sml1"><span class="bs_han vbig">0︀</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">0</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">0︀</span></td>
 	<td class="sml1">short diagonal stroke form — DIGIT ZERO</td>
 </tr>
 <tr>
 	<td class="sm1">U+2018</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">‘</span></td>
-	<td class="sml1"><span class="bs_han vbig">‘︀</span></td>
-	<td class="sml1">non-fullwidth form — LEFT SINGLE QUOTATION MARK. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">‘</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">‘︀</span></td>
+	<td class="sml1">non-fullwidth form — LEFT SINGLE QUOTATION MARK. The font maps this sequence to the same glyph as the plain character.</td>
 </tr>
 <tr>
 	<td class="sm1">U+2018</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">‘</span></td>
-	<td class="sml1"><span class="bs_han vbig">‘︁</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">‘</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">‘︁</span></td>
 	<td class="sml1">right-justified fullwidth form — LEFT SINGLE QUOTATION MARK</td>
 </tr>
 <tr>
 	<td class="sm1">U+2019</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">’</span></td>
-	<td class="sml1"><span class="bs_han vbig">’︀</span></td>
-	<td class="sml1">non-fullwidth form — RIGHT SINGLE QUOTATION MARK. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">’</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">’︀</span></td>
+	<td class="sml1">non-fullwidth form — RIGHT SINGLE QUOTATION MARK. The font maps this sequence to the same glyph as the plain character.</td>
 </tr>
 <tr>
 	<td class="sm1">U+2019</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">’</span></td>
-	<td class="sml1"><span class="bs_han vbig">’︁</span></td>
-	<td class="sml1">left-justified fullwidth form — RIGHT SINGLE QUOTATION MARK. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">’</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">’︁</span></td>
+	<td class="sml1">left-justified fullwidth form — RIGHT SINGLE QUOTATION MARK</td>
 </tr>
 <tr>
 	<td class="sm1">U+201C</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">“</span></td>
-	<td class="sml1"><span class="bs_han vbig">“︀</span></td>
-	<td class="sml1">non-fullwidth form — LEFT DOUBLE QUOTATION MARK. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">“</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">“︀</span></td>
+	<td class="sml1">non-fullwidth form — LEFT DOUBLE QUOTATION MARK. The font maps this sequence to the same glyph as the plain character.</td>
 </tr>
 <tr>
 	<td class="sm1">U+201C</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">“</span></td>
-	<td class="sml1"><span class="bs_han vbig">“︁</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">“</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">“︁</span></td>
 	<td class="sml1">right-justified fullwidth form — LEFT DOUBLE QUOTATION MARK</td>
 </tr>
 <tr>
 	<td class="sm1">U+201D</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">”</span></td>
-	<td class="sml1"><span class="bs_han vbig">”︀</span></td>
-	<td class="sml1">non-fullwidth form — RIGHT DOUBLE QUOTATION MARK. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">”</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">”︀</span></td>
+	<td class="sml1">non-fullwidth form — RIGHT DOUBLE QUOTATION MARK. The font maps this sequence to the same glyph as the plain character.</td>
 </tr>
 <tr>
 	<td class="sm1">U+201D</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">”</span></td>
-	<td class="sml1"><span class="bs_han vbig">”︁</span></td>
-	<td class="sml1">left-justified fullwidth form — RIGHT DOUBLE QUOTATION MARK. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">”</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">”︁</span></td>
+	<td class="sml1">left-justified fullwidth form — RIGHT DOUBLE QUOTATION MARK</td>
 </tr>
 <tr>
 	<td class="sm1">U+3001</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">、</span></td>
-	<td class="sml1"><span class="bs_han vbig">、︀</span></td>
-	<td class="sml1">corner-justified form — IDEOGRAPHIC COMMA. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">、</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">、︀</span></td>
+	<td class="sml1">corner-justified form — IDEOGRAPHIC COMMA. The font maps this sequence to the same glyph as the plain character.</td>
 </tr>
 <tr>
 	<td class="sm1">U+3001</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">、</span></td>
-	<td class="sml1"><span class="bs_han vbig">、︁</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">、</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">、︁</span></td>
 	<td class="sml1">centered form — IDEOGRAPHIC COMMA</td>
 </tr>
 <tr>
 	<td class="sm1">U+3002</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">。</span></td>
-	<td class="sml1"><span class="bs_han vbig">。︀</span></td>
-	<td class="sml1">corner-justified form — IDEOGRAPHIC FULL STOP. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">。</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">。︀</span></td>
+	<td class="sml1">corner-justified form — IDEOGRAPHIC FULL STOP. The font maps this sequence to the same glyph as the plain character.</td>
 </tr>
 <tr>
 	<td class="sm1">U+3002</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">。</span></td>
-	<td class="sml1"><span class="bs_han vbig">。︁</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">。</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">。︁</span></td>
 	<td class="sml1">centered form — IDEOGRAPHIC FULL STOP</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF01</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">！</span></td>
-	<td class="sml1"><span class="bs_han vbig">！︀</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">！</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">！︀</span></td>
 	<td class="sml1">corner-justified form — FULLWIDTH EXCLAMATION MARK</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF01</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">！</span></td>
-	<td class="sml1"><span class="bs_han vbig">！︁</span></td>
-	<td class="sml1">centered form — FULLWIDTH EXCLAMATION MARK. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">！</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">！︁</span></td>
+	<td class="sml1">centered form — FULLWIDTH EXCLAMATION MARK. The font maps this sequence to the same glyph as the plain character.</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF0C</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">，</span></td>
-	<td class="sml1"><span class="bs_han vbig">，︀</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">，</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">，︀</span></td>
 	<td class="sml1">corner-justified form — FULLWIDTH COMMA</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF0C</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">，</span></td>
-	<td class="sml1"><span class="bs_han vbig">，︁</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">，</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">，︁</span></td>
 	<td class="sml1">centered form — FULLWIDTH COMMA</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF0E</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">．</span></td>
-	<td class="sml1"><span class="bs_han vbig">．︀</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">．</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">．︀</span></td>
 	<td class="sml1">corner-justified form — FULLWIDTH FULL STOP</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF0E</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">．</span></td>
-	<td class="sml1"><span class="bs_han vbig">．︁</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">．</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">．︁</span></td>
 	<td class="sml1">centered form — FULLWIDTH FULL STOP</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF1A</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">：</span></td>
-	<td class="sml1"><span class="bs_han vbig">：︀</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">：</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">：︀</span></td>
 	<td class="sml1">corner-justified form — FULLWIDTH COLON</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF1A</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">：</span></td>
-	<td class="sml1"><span class="bs_han vbig">：︁</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">：</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">：︁</span></td>
 	<td class="sml1">centered form — FULLWIDTH COLON</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF1B</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">；</span></td>
-	<td class="sml1"><span class="bs_han vbig">；︀</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">；</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">；︀</span></td>
 	<td class="sml1">corner-justified form — FULLWIDTH SEMICOLON</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF1B</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">；</span></td>
-	<td class="sml1"><span class="bs_han vbig">；︁</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">；</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">；︁</span></td>
 	<td class="sml1">centered form — FULLWIDTH SEMICOLON</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF1F</td>
 	<td class="sm1">VS1</td>
-	<td class="sml1"><span class="bs_han vbig">？</span></td>
-	<td class="sml1"><span class="bs_han vbig">？︀</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">？</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">？︀</span></td>
 	<td class="sml1">corner-justified form — FULLWIDTH QUESTION MARK</td>
 </tr>
 <tr>
 	<td class="sm1">U+FF1F</td>
 	<td class="sm1">VS2</td>
-	<td class="sml1"><span class="bs_han vbig">？</span></td>
-	<td class="sml1"><span class="bs_han vbig">？︁</span></td>
-	<td class="sml1">centered form — FULLWIDTH QUESTION MARK. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1"><span class="bs_han vbig em-box">？</span></td>
+	<td class="sml1"><span class="bs_han vbig em-box">？︁</span></td>
+	<td class="sml1">centered form — FULLWIDTH QUESTION MARK. The font maps this sequence to the same glyph as the plain character.</td>
 </tr>
 </tbody>
 </table>
 
 <br/>
 
-<h3 id="SVS-babelstone">BabelStone-specific Sequences (32)</h3>
+<h3 id="SVS-babelstone">BabelStone-specific Sequences BabelStone 自訂序列 (32)</h3>
 
 <p>These sequences are not in StandardizedVariants-18.0.0.txt; they are private conventions of BabelStone Han and may change in future versions.</p>
+
+<p class="zh" lang="zh-Hant">這些序列不在 StandardizedVariants-18.0.0.txt 中，是 BabelStone Han 自訂的慣例，日後版本可能會變動。</p>
 
 <table id="SVS-babelstone-table" class="solid" width="100%">
 <thead>
@@ -35818,7 +35858,7 @@ sequences) at the end makes the page cover all 3,952 variation sequences in the 
 	<td class="sm1">VS2</td>
 	<td class="sml1"><span class="bs_han vbig">ㄧ</span></td>
 	<td class="sml1"><span class="bs_han vbig">ㄧ︁</span></td>
-	<td class="sml1">BOPOMOFO LETTER I. Same glyph as the plain character (already its default form).</td>
+	<td class="sml1">BOPOMOFO LETTER I. The font maps this sequence to the same glyph as the plain character.</td>
 </tr>
 <tr>
 	<td class="sm1">U+3251</td>
